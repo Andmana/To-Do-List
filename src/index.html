@@ -4,6 +4,132 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+        <script defer></script>
     </head>
-    <body></body>
+    <body>
+        <div id="root">
+            <div id="sidebar-logo">
+                <img class="logo-icon" alt="" />
+            </div>
+            <div id="sidebar">
+                <div id="nav">
+                    <h5 class="nav-title">Tasks</h5>
+                    <div id="tasks-nav" class="nav-group">
+                        <div
+                            class="nav-item task-link"
+                            data-due="today"
+                            data-completed="false"
+                            data-project="null"
+                        >
+                            <img class="nav-icon" />
+                            <div class="nav-name">Today</div>
+                            <div class="pending-count">2</div>
+                        </div>
+                        <div
+                            class="nav-item task-link"
+                            data-due="tomorrow"
+                            data-completed="false"
+                            data-project="null"
+                        >
+                            <img class="nav-icon" />
+                            <div class="nav-name">Tomorrow</div>
+                            <div>1</div>
+                        </div>
+                        <div
+                            class="nav-item task-link"
+                            data-due="week"
+                            data-completed="false"
+                            data-project="null"
+                        >
+                            <img class="nav-icon" />
+                            <div class="nav-name">This Week</div>
+                            <div>3</div>
+                        </div>
+                        <div
+                            class="nav-item task-link"
+                            data-due="null"
+                            data-completed="false"
+                            data-project="null"
+                        >
+                            <img class="nav-icon" />
+                            <div class="nav-name">All</div>
+                            <div>4</div>
+                        </div>
+                        <div
+                            class="nav-item task-link"
+                            data-due="null"
+                            data-completed="true"
+                            data-project="null"
+                        >
+                            <img class="nav-icon" />
+                            <div class="nav-name">Completed</div>
+                        </div>
+                    </div>
+                    <h5 class="nav-title">Projects</h5>
+                    <div id="projects-nav" class="nav-group">
+                        <div class="nav-item project-link">
+                            <img class="nav-icon" />
+                            <div class="nav-name">Default</div>
+                            <div>2</div>
+                        </div>
+                        <div class="nav-item" id="add-project">
+                            <img class="nav-icon" />
+                            <div class="nav-name">Add Project</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="section">
+                <div id="header">
+                    <img class="logo-icon" alt="" />
+                    <h2>Procrastinating, aren’t we?</h2>
+                </div>
+                <div id="main">
+                    <div><h3>Default</h3></div>
+                    <div id="status">
+                        <div id="pending-count">
+                            <h2>1</h2>
+                            <div>Pending</div>
+                        </div>
+                        <div id="complete-count">
+                            <h2>1</h2>
+                            <div>Complete</div>
+                        </div>
+                    </div>
+                    <div id="task-list">
+                        <div class="month">Month Divider</div>
+                        <div class="task-item">
+                            <label class="checkbox">
+                                <input type="checkbox" disabled="" />
+                                <div class="checkmark"></div>
+                            </label>
+                            <div class="badge"></div>
+                            <div>Task Name</div>
+                            <div class="date">Date</div>
+                        </div>
+                    </div>
+                    <div id="add-task">
+                        <img class="nav-icon" alt="" />
+                        <div>Add Task</div>
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>Footer</p>
+                </div>
+            </div>
+            <!-- The Modal -->
+            <div id="modal-wrapper" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modal Title</h4>
+                        <span class="close">×</span>
+                    </div>
+                    <div class="modal-body">
+                        <p>Change Here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

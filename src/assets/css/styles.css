@@ -1,3 +1,430 @@
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
 body {
-    background-color: black;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    letter-spacing: 2px;
+}
+#root,
+#__next {
+    isolation: isolate;
+}
+
+/***************/
+/*             */
+/*   MY CODE   */
+/*             */
+/***************/
+
+:root {
+    --text-main: #ececec;
+    --text-secondary: #e4e4e7;
+    --background-main: #171717;
+    --background-secondary: #212121;
+    --background-input: #373737;
+}
+
+button,
+input,
+select {
+    all: unset;
+    cursor: pointer;
+}
+
+textarea {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: vertical;
+}
+
+#root {
+    position: relative;
+    min-height: 100vh;
+    font-size: 0.9rem;
+    display: flex;
+    letter-spacing: 0.8px;
+}
+
+#sidebar-logo {
+    position: fixed;
+    padding: 6px;
+
+    top: 13.5px;
+    left: 13.5px;
+}
+
+#sidebar-logo:hover {
+    border-radius: 5px;
+    background-color: var(--background-secondary);
+}
+
+.logo-icon {
+    width: 30px;
+    height: 30px;
+    filter: invert(88%) sepia(8%) saturate(0%) hue-rotate(282deg)
+        brightness(105%) contrast(89%);
+}
+
+/***************/
+/*             */
+/*   SideBar   */
+/*     Nav     */
+/*             */
+/***************/
+
+#sidebar {
+    flex-basis: 250px;
+    background-color: var(--background-main);
+    color: var(--text-main);
+
+    padding: 13.5px;
+    padding-top: 100px;
+}
+.nav-title {
+    padding: 9px;
+}
+
+.nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    margin-bottom: 30px;
+}
+
+.nav-item {
+    padding: 6px 13px;
+    border-radius: 5px;
+
+    text-align: start;
+
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-item:hover {
+    border-radius: 5px;
+    background-color: var(--background-secondary);
+}
+
+.nav-name {
+    flex-grow: 1;
+}
+
+.nav-name ~ div {
+    font-size: 0.8rem;
+    color: var(--text-secondary) s;
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    filter: invert(88%) sepia(8%) saturate(0%) hue-rotate(282deg)
+        brightness(105%) contrast(89%);
+}
+
+/***************/
+/*             */
+/*   Content   */
+/*             */
+/***************/
+
+#section {
+    flex-grow: 1;
+    background-color: var(--background-secondary);
+    color: var(--text-main);
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px 30px;
+}
+
+#header {
+    flex-basis: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#header h2 {
+    font-weight: 450;
+}
+
+#main {
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#status {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+#status > div {
+    width: 120px;
+    height: 90px;
+    padding: 10px;
+
+    border-radius: 10%;
+    background-color: var(--background-input);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#add-task {
+    align-self: center;
+    position: relative;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 4px 15px;
+    border-radius: 3px;
+    border: 2px solid var(--background-input);
+    background-color: var(--background-main);
+}
+
+#add-task:hover {
+    border: 2px solid var(--text-main);
+    background-color: var(--background-secondary);
+}
+
+#task-list {
+    width: 700px;
+}
+
+.month {
+    padding: 5px 15px;
+    width: 100%;
+    font-size: 0.7rem;
+    font-weight: 900;
+}
+
+.task-item {
+    font-size: 0.85rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--background-input);
+    gap: 30px;
+    border-radius: 3px;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+}
+
+.task-item > div {
+    padding: 5px 0;
+}
+
+.task-item > .badge {
+    position: relative;
+    padding: 0;
+    width: 10px;
+    align-self: stretch;
+}
+
+.Low {
+    background-color: rgb(11, 246, 11);
+}
+.Medium {
+    background-color: yellow;
+}
+.High {
+    background-color: rgb(255, 56, 56);
+}
+
+.task-item .date {
+    flex: 1;
+    text-align: end;
+}
+
+#footer {
+    flex-basis: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/***************/
+/*             */
+/*             */
+/***************/
+/* From Uiverse.io by joe-watson-sbf */
+/* From Uiverse.io by joe-watson-sbf */
+.checkbox {
+    height: 1.1em;
+    width: 1.1em;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkbox input {
+    position: absolute;
+    transform: scale(0);
+}
+
+.checkbox input:checked ~ .checkmark {
+    transform: rotate(45deg);
+    height: 1.1em;
+    width: 0.7em;
+    border-color: #32cd32;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-radius: 0;
+    position: relative;
+    top: -4px;
+    left: 6px;
+}
+
+.checkbox .checkmark {
+    display: block;
+    width: inherit;
+    height: inherit;
+    border: 2px solid #32cd32;
+    border-radius: 4px;
+    transition: transform 0.3s;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: var(--background-secondary);
+    position: relative;
+    color: var(--text-main);
+    margin: auto;
+    padding: 20px;
+    border: 2px solid var(--text-main);
+    border-radius: 10px;
+    width: 400px;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: relative;
+    top: -10px;
+    right: -5px;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--text-secondary);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.form-group {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    margin: 20px 10px;
+}
+
+.form-group label {
+    color: var(--text-secondary);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 4px 15px;
+    border-radius: 5px;
+    border: 2px solid var(--background-input);
+    background-color: var(--background-main);
+    color-scheme: dark;
+}
+
+.form-action {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+
+.form-action button {
+    padding: 4px 15px;
+    border-radius: 5px;
+    border: 2px solid var(--background-input);
+    background-color: var(--background-main);
 }
