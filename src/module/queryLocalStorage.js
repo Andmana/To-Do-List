@@ -1,6 +1,6 @@
-import { Project } from "./Project";
+import { Project } from "../class/Project";
 import { isThisWeek, isToday, isTomorrow } from "date-fns";
-import { Task } from "./Task";
+import { Task } from "../class/Task";
 
 const getFromLocalStorage = (key) =>
     JSON.parse(localStorage.getItem(key)) || [];
