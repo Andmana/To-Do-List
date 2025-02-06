@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export class Task {
     title;
     description;
@@ -19,5 +21,9 @@ export class Task {
         this.priority = priority;
         this.project = project;
         this.isCompleted = isCompleted;
+    }
+
+    get getFormatedDueDate() {
+        return format(this.dueDate, "EEE, dd MMM yyyy");
     }
 }
