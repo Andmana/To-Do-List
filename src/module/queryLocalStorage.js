@@ -28,7 +28,7 @@ export function getAllTasks() {
     return mapTasks(getFromLocalStorage("tasks").tasks || []);
 }
 
-export function getAllTasksBy(isPending, due, project) {
+export function getAllTasksBy(isCompleted, due, project) {
     const filters = {
         today: isToday,
         tomorrow: isTomorrow,
@@ -39,19 +39,21 @@ export function getAllTasksBy(isPending, due, project) {
 
     if (filters[due])
         tasks = tasks.filter((task) => filters[due](task.dueDate));
-    if (isPending) tasks = tasks.filter((task) => !task.isCompleted);
+    if (isCompleted != null)
+        tasks = tasks.filter((task) => task.isCompleted === isCompleted);
     if (project) tasks = tasks.filter((task) => task.project === project);
 
     return tasks;
 }
 
-export const countAllTasksBy = (isPending, due, project) =>
-    getAllTasksBy(isPending, due, project).length;
+export const countAllTasksBy = (isCompleted, due, project) =>
+    getAllTasksBy(isCompleted, due, project).length;
 
 export function updateProjectsData(projects) {
     localStorage.setItem("projects", JSON.stringify({ projects }));
 }
 
 export function updateTasksData(tasks) {
+    tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
     localStorage.setItem("tasks", JSON.stringify({ tasks }));
 }
