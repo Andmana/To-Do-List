@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, isDate } from "date-fns";
 
 export class Task {
     title;
@@ -24,6 +24,13 @@ export class Task {
     }
 
     get getFormatedDueDate() {
-        return format(this.dueDate, "EEE, dd MMM yyyy");
+        let date = this.dueDate;
+        if (typeof date === "string") {
+            date = new Date(date);
+        }
+        if (!(date instanceof Date) || isNaN(date)) {
+            return this.dueDate; // Return original if invalid
+        }
+        return format(date, "EEE, dd MMM yyyy");
     }
 }
