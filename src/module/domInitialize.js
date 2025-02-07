@@ -32,7 +32,7 @@ const createNavItem = (iconSrc, name, counter = null) => {
 };
 
 // Function to generate project navigation
-export const generateProjectNavs = (() => {
+export const generateProjectNavs = () => {
     const projects = getAllProjects();
     const navWrapper = document.querySelector("#projects-nav");
 
@@ -54,38 +54,41 @@ export const generateProjectNavs = (() => {
     // Create Add Project nav item
     const addProjectNavItem = createNavItem(addIcon, "Add Project");
     navWrapper.appendChild(addProjectNavItem);
-})();
+};
 
 export const generateMainContent = (hero, isCompleted, due, groupProject) => {
-    document.querySelector("#main-hero").innerHTML = hero;
-    document.querySelector("#pending-count h2").innerHTML = countAllTasksBy(
-        false,
-        due,
-        groupProject
+    const setInnerHTML = (selector, value) =>
+        (document.querySelector(selector).innerHTML = value);
+    const setDisplay = (selector, value) =>
+        (document.querySelector(selector).style.display = value);
+
+    setInnerHTML("#main-hero", hero);
+    setInnerHTML(
+        "#pending-count h2",
+        countAllTasksBy(false, due, groupProject)
     );
-    document.querySelector("#completed-count h2").innerHTML = countAllTasksBy(
-        true,
-        due,
-        groupProject
+    setInnerHTML(
+        "#completed-count h2",
+        countAllTasksBy(true, due, groupProject)
     );
+
+    setDisplay("#pending-count", hero === "Completed" ? "none" : "flex");
 
     const tasksContainer = document.querySelector("#task-list");
     tasksContainer.innerHTML = "";
-    const tasks = getAllTasksBy(isCompleted, due, groupProject);
 
-    tasks.forEach((task) => {
-        const navItem = document.createElement("div");
-        navItem.className = "task-item";
-        navItem.innerHTML = `
-                        <label class="checkbox">
-                            <input type="checkbox" ${
-                                task.isCompleted ? "checked" : ""
-                            } />
-                            <div class="checkmark"></div>
-                        </label>
-                        <div class="badge ${task.priority}"></div>
-                        <div>${task.title}</div>
-                        <div class="date">${task.getFormatedDueDate}</div>`;
-        tasksContainer.appendChild(navItem);
+    getAllTasksBy(isCompleted, due, groupProject).forEach((task) => {
+        tasksContainer.innerHTML += `
+            <div class="task-item">
+                <label class="checkbox">
+                    <input type="checkbox" ${
+                        task.isCompleted ? "checked" : ""
+                    } />
+                    <div class="checkmark"></div>
+                </label>
+                <div class="badge ${task.priority}"></div>
+                <div>${task.title}</div>
+                <div class="date">${task.getFormatedDueDate}</div>
+            </div>`;
     });
 };
