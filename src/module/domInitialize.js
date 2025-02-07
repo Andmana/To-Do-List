@@ -40,6 +40,14 @@ export const generateProjectNavs = (() => {
     projects.forEach((project) => {
         const taskCount = countAllTasksBy(false, null, project.name);
         const navItem = createNavItem(projectIcon, project.name, taskCount);
+        navItem.addEventListener("click", () => {
+            generateMainContent(
+                project.name + " Task",
+                false,
+                null,
+                project.name
+            );
+        });
         navWrapper.appendChild(navItem);
     });
 
