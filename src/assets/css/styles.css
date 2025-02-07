@@ -403,7 +403,7 @@ textarea {
     display: grid;
     grid-template-columns: 1fr 2fr;
     align-items: center;
-    margin: 20px 10px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
@@ -420,13 +420,14 @@ textarea {
     color-scheme: dark;
 }
 
-.form-action {
+.modal-action {
     display: flex;
     justify-content: end;
     gap: 10px;
 }
 
-.form-action button {
+.modal-action button {
+    margin-bottom: 20px;
     padding: 4px 15px;
     border-radius: 5px;
     border: 2px solid var(--background-input);

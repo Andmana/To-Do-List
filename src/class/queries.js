@@ -1,6 +1,6 @@
-import { Project } from "../class/Project";
+import { Project } from "./Project";
 import { isThisWeek, isToday, isTomorrow } from "date-fns";
-import { Task } from "../class/Task";
+import { Task } from "./Task";
 
 const getFromLocalStorage = (key) =>
     JSON.parse(localStorage.getItem(key)) || [];
@@ -56,4 +56,26 @@ export function updateProjectsData(projects) {
 export function updateTasksData(tasks) {
     tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
     localStorage.setItem("tasks", JSON.stringify({ tasks }));
+}
+
+export function saveProject(name, id = null) {
+    let projects = getAllProjects();
+
+    if (id !== null) {
+        if (projects[id]) {
+            projects[id].name = name;
+            updateProjectsData(projects);
+        }
+    } else {
+        if (
+            projects.some((pj) => pj.name.toLowerCase() === name.toLowerCase())
+        ) {
+            return;
+        }
+
+        // Create a new project and add it to the list
+        const project = new Project(name);
+        projects.push(project);
+        updateProjectsData(projects);
+    }
 }
