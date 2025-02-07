@@ -144,6 +144,10 @@ textarea {
     margin-bottom: 30px;
 }
 
+#projects-nav {
+    margin-bottom: 0;
+}
+
 .nav-item {
     padding: 6px 13px;
     border-radius: 5px;

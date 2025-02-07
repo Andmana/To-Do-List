@@ -7,7 +7,7 @@ import tomorrowIcon from "../assets/icons/tomorrow.svg";
 import weekIcon from "../assets/icons/week.svg";
 import sidebarIcon from "../assets/icons/sidebar.svg";
 
-export const generateStaticIcon = (() => {
+export const loadStaticIcon = (() => {
     const taskIcons = [
         todayIcon,
         tomorrowIcon,
@@ -23,4 +23,5 @@ export const generateStaticIcon = (() => {
     document.querySelector("#sidebar-logo > img").src = sidebarIcon;
     document.querySelector("#header > img").src = logoIcon;
     document.querySelector("#add-task > img").src = addIcon;
+    document.querySelector("#add-project > img").src = addIcon;
 })();
