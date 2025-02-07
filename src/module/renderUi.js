@@ -1,9 +1,9 @@
-import { generateMainContent, generateProjectNavs } from "./domInitialize";
+import { generateMainContent } from "./domInitialize";
 import { updatePendingCount } from "./domManipulation";
 import { countAllTasksBy, getAllProjects } from "./queryLocalStorage";
-import { loadStaticIcon } from "./imageSauce";
 
 import projectIcon from "../assets/icons/project.svg";
+import { loadStaticIcon } from "./imageSauce";
 
 export const renderUI = (() => {
     let currentState = {
