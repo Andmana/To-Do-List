@@ -7,7 +7,7 @@ export const modalOperation = () => {
         openModal();
         loadProjectForm();
     });
-    closeModal();
+    // closeModal();
 };
 
 const openModal = () => {
@@ -30,22 +30,51 @@ const closeModal = () => {
 const loadProjectForm = () => {
     const modal = document.querySelector("#modal-wrapper");
     const modalBody = document.querySelector(".modal-body");
-    modalBody.innerHTML = `
-                            <div class="form-group">
+    modalBody.innerHTML = "";
+
+    const form = document.createElement("form");
+    form.id = "project-form";
+    modalBody.appendChild(form);
+
+    const formInput = document.createElement("div");
+    formInput.className = "form-input";
+    formInput.innerHTML = `
+                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" id="name" name="name">
+                                <input type="text" id="name" name="name" required>
                             </div>
                         `;
-    const formAction = document.querySelector(".form-save");
-    formAction.innerHTML = "";
-    const saveBtn = document.createElement("button");
-    saveBtn.innerHTML = "save";
-    formAction.appendChild(saveBtn);
+    form.appendChild(formInput);
 
-    saveBtn.addEventListener("click", () => {
-        const name = document.querySelector("#name");
-        alert(name.value);
-        saveProject(name.value);
+    const formAction = document.createElement("div");
+    formAction.className = "form-action";
+    form.appendChild(formAction);
+
+    const closeBtn = document.createElement("button");
+    closeBtn.textContent = "close";
+    closeBtn.type = "button";
+    formAction.appendChild(closeBtn);
+
+    closeBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    const submitBtn = document.createElement("button");
+    submitBtn.textContent = "save";
+    submitBtn.type = "submit";
+    formAction.appendChild(submitBtn);
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const objectForm = {};
+
+        formData.forEach(function (value, key) {
+            objectForm[key] = value;
+        });
+
+        saveProject(objectForm.name);
         refreshPage();
         modal.style.display = "none";
     });

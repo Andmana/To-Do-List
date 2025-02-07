@@ -113,8 +113,7 @@ textarea {
 .logo-icon {
     width: 30px;
     height: 30px;
-    filter: invert(88%) sepia(8%) saturate(0%) hue-rotate(282deg)
-        brightness(105%) contrast(89%);
+    filter: invert(88%) sepia(8%) saturate(0%) hue-rotate(282deg) brightness(105%) contrast(89%);
 }
 
 /***************/
@@ -177,8 +176,7 @@ textarea {
 .nav-icon {
     width: 20px;
     height: 20px;
-    filter: invert(88%) sepia(8%) saturate(0%) hue-rotate(282deg)
-        brightness(105%) contrast(89%);
+    filter: invert(88%) sepia(8%) saturate(0%) hue-rotate(282deg) brightness(105%) contrast(89%);
 }
 
 /***************/
@@ -420,13 +418,13 @@ textarea {
     color-scheme: dark;
 }
 
-.modal-action {
+.form-action {
     display: flex;
     justify-content: end;
     gap: 10px;
 }
 
-.modal-action button {
+.form-action button {
     margin-bottom: 20px;
     padding: 4px 15px;
     border-radius: 5px;
