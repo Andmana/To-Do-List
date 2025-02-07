@@ -9,9 +9,10 @@ import { init } from "./module/app";
 
 import { getAllTasks, getFromLocalStorage, saveToLocalStorage } from "./class/queries";
 
+const today = new Date();
 let tasks = [new Task("Task 0", "Description 1", today, "Low", "Default", true)];
 
-projects = [new Project("Default")];
+const projects = [new Project("Default")];
 let data = getFromLocalStorage();
 if (Object.keys(data).length === 0) {
     saveToLocalStorage(projects, tasks);
