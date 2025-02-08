@@ -62,20 +62,48 @@ export const countAllTasksBy = (isCompleted, due, project) =>
 
 export function saveProject(name, id = null) {
     let projects = getAllProjects();
+    let exists = projects.some(
+        (pj, index) => pj.name.toLowerCase() === name.toLowerCase() && index !== id
+    );
+    if (exists) return;
 
-    if (id !== null) {
-        if (projects[id]) {
-            projects[id].name = name;
-            updateProjectsData(projects);
-        }
+    if (id !== null && projects[id]) {
+        projects[id].name = name;
     } else {
-        if (projects.some((pj) => pj.name.toLowerCase() === name.toLowerCase())) {
-            return;
-        }
-
-        // Create a new project and add it to the list
-        const project = new Project(name);
-        projects.push(project);
-        updateLocalStorage(projects);
+        projects.push(new Project(name));
     }
+    updateLocalStorage(projects);
+}
+
+export function saveTask(objectForm, id = null) {
+    let tasks = getAllTasks();
+    let exists = tasks.some(
+        (t, index) => t.title.toLowerCase() === objectForm.title.toLowerCase() && index !== id
+    );
+    if (exists) return;
+
+    const taskData = {
+        title: objectForm.title,
+        description: objectForm.description,
+        dueDate: objectForm.dueDate || "No Date",
+        priority: objectForm.priority,
+        project: objectForm.project,
+        isCompleted: false,
+    };
+
+    if (id !== null && tasks[id]) {
+        Object.assign(tasks[id], taskData);
+    } else {
+        tasks.push(
+            new Task(
+                taskData.title,
+                taskData.description,
+                taskData.dueDate,
+                taskData.priority,
+                taskData.project,
+                taskData.isCompleted
+            )
+        );
+    }
+    updateLocalStorage(undefined, tasks);
 }

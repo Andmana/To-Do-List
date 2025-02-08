@@ -7,7 +7,12 @@ import { addDays } from "date-fns";
 //Run JS
 import { init } from "./module/app";
 
-import { getAllTasks, getFromLocalStorage, saveToLocalStorage } from "./class/queries";
+import {
+    getAllProjects,
+    getAllTasks,
+    getFromLocalStorage,
+    saveToLocalStorage,
+} from "./class/queries";
 
 const today = new Date();
 let tasks = [new Task("Task 0", "Description 1", today, "Low", "Default", true)];
@@ -25,3 +30,5 @@ window.retrive = (is, by, group) => {
 window.get = () => {
     console.log(getAllTasks());
 };
+
+window.getProjects = () => getAllProjects();
