@@ -14,18 +14,29 @@ export const saveToLocalStorage = (projects, tasks) => {
 export const updateLocalStorage = (projects = undefined, tasks = undefined) => {
     const data = getFromLocalStorage();
     if (projects !== undefined) data.projects = projects;
-    if (tasks !== undefined) data.tasks = tasks;
+    if (tasks !== undefined) {
+        tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+        data.tasks = tasks;
+    }
     localStorage.setItem("myToDoList", JSON.stringify(data));
 };
 
 export function getAllProjects() {
-    const { projects = [] } = getFromLocalStorage(); // Default to empty array if no projects
-    return mapProjects(projects);
+    let { projects = [] } = getFromLocalStorage(); // Default to empty array if no projects
+    projects = mapProjects(projects);
+    for (let i = 0; i < projects.length; i++) {
+        projects[i].id = i;
+    }
+    return projects;
 }
 
 export function getAllTasks() {
-    const { tasks = [] } = getFromLocalStorage(); // Default to empty array if no tasks
-    return mapTasks(tasks);
+    let { tasks = [] } = getFromLocalStorage(); // Default to empty array if no tasks
+    tasks = mapTasks(tasks);
+    for (let i = 0; i < tasks.length; i++) {
+        tasks[i].id = i;
+    }
+    return tasks;
 }
 
 const mapProjects = (projects) => projects.map(({ name }) => new Project(name));
@@ -35,6 +46,10 @@ const mapTasks = (tasks) =>
         ({ title, description, dueDate, priority, project, isCompleted }) =>
             new Task(title, description, dueDate, priority, project, isCompleted)
     );
+
+export function getTaskByIndex(index) {
+    return getAllTasks()[index];
+}
 
 export function getAllTasksBy(isCompleted, due, project) {
     const filters = {

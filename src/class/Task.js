@@ -1,20 +1,14 @@
 import { format, isDate } from "date-fns";
 
 export class Task {
+    id;
     title;
     description;
     dueDate;
     priority;
     isCompleted;
 
-    constructor(
-        title,
-        description,
-        dueDate = "No date",
-        priority,
-        project,
-        isCompleted
-    ) {
+    constructor(title, description, dueDate = "No date", priority, project, isCompleted) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;

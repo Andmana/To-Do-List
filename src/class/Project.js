@@ -1,4 +1,5 @@
 export class Project {
+    id;
     constructor(name) {
         this.name = name;
     }
