@@ -2,7 +2,7 @@ import { countAllTasksBy, getAllProjects } from "../class/queries.js";
 import { setCurrentState } from "./state.js";
 import projectIcon from "../assets/icons/project.svg";
 import { createNavItem } from "./utils.js";
-import { generateMainContent } from "./mainContent.js";
+import { loadMain } from "./mainContent.js";
 
 export const loadSideBar = () => {
     updatePendingCount();
@@ -43,7 +43,7 @@ const setupSideBarEvents = () => {
     navItems.forEach(({ id, text, type, value, isCompleted = false }) => {
         const navElement = document.querySelector(id);
         navElement?.addEventListener("click", () => {
-            generateMainContent(text, isCompleted, value, null);
+            loadMain(text, isCompleted, value, null);
             setCurrentState(text, isCompleted, value, null, type);
         });
     });
@@ -60,13 +60,7 @@ const generateProjectNavs = () => {
 
         navItem.addEventListener("click", () => {
             generateMainContent(project.name, false, null, project.name);
-            setCurrentState(
-                project.name,
-                false,
-                null,
-                project.name,
-                navItem.id
-            );
+            setCurrentState(project.name, false, null, project.name, navItem.id);
         });
 
         navWrapper.appendChild(navItem);

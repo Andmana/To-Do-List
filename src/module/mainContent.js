@@ -6,6 +6,7 @@ import { currentState } from "./state.js";
 export const loadMain = () => {
     const { heroQuery, isCompletedQuery, dueQuery, groupQuery } = currentState;
     generateMainContent(heroQuery, isCompletedQuery, dueQuery, groupQuery);
+    attachEventListeners();
 };
 
 export const generateMainContent = (hero, isCompleted, due, groupProject) => {
@@ -29,43 +30,33 @@ export const generateMainContent = (hero, isCompleted, due, groupProject) => {
         const taskItem = document.createElement("div");
         taskItem.className = "task-item";
         taskItem.setAttribute("data-index", task.id);
-        tasksContainer.appendChild(taskItem);
         taskItem.innerHTML = `
-                <label class="checkbox">
-                    <input type="checkbox" data-index="${task.id}" ${
+            <label class="checkbox">
+                <input type="checkbox" data-index="${task.id}" ${
             task.isCompleted ? "checked" : ""
         } />
-                    <p class="checkmark"></p>
-                </label>
-                <div class="badge ${task.priority}"></div>
-                <div>${task.title}</div>
-                <div class="date">${task.getFormatedDueDate}</div>`;
+                <p class="checkmark"></p>
+            </label>
+            <div class="badge ${task.priority}"></div>
+            <div>${task.title}</div>
+            <div class="date">${task.getFormatedDueDate}</div>`;
+        tasksContainer.appendChild(taskItem);
     });
-    taskEvent();
-    checkboxEvent();
 };
 
-const checkboxEvent = () => {
-    const checkboxs = document.querySelectorAll(".checkbox > input");
-    checkboxs.forEach((checkbox) => {
-        const id = checkbox.getAttribute("data-index");
+const attachEventListeners = () => {
+    document.querySelectorAll(".checkbox > input").forEach((checkbox) => {
         checkbox.addEventListener("change", () => {
-            alert(id);
+            const id = checkbox.getAttribute("data-index");
             updateTaskProgress(id);
             refreshPage2();
         });
     });
-};
 
-const taskEvent = () => {
-    const tasks = document.querySelectorAll(".task-item");
-
-    tasks.forEach((task) => {
+    document.querySelectorAll(".task-item").forEach((task) => {
         task.addEventListener("click", (event) => {
-            const id = task.getAttribute("data-index"); // Get the data-index of the clicked task
-            const target = event.target;
-
-            if (target.tagName === "DIV") {
+            if (event.target.tagName === "DIV") {
+                const id = task.getAttribute("data-index");
                 loadTaskForm(id);
                 modalAction();
             }
