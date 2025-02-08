@@ -55,6 +55,15 @@ export function getProjectByIndex(index) {
     return getAllProjects()[index];
 }
 
+export function deleteProjectBy(index) {
+    const projects = getAllProjects();
+    const project = getProjectByIndex(index);
+    let tasks = getAllTasks();
+    tasks = tasks.filter((task) => task.project != project.name);
+    projects.splice(index, 1);
+    updateLocalStorage(projects, tasks);
+}
+
 export function getAllTasksBy(isCompleted, due, project) {
     const filters = {
         today: isToday,

@@ -1,5 +1,6 @@
 import { isDate } from "date-fns";
 import {
+    deleteProjectBy,
     deleteTaskBy,
     getAllProjects,
     getProjectByIndex,
@@ -71,14 +72,27 @@ export const loadProjectForm = (index = null) => {
     formAction.className = "form-action";
     form.appendChild(formAction);
 
-    const closeBtn = document.createElement("button");
-    closeBtn.textContent = "close";
-    closeBtn.type = "button";
-    formAction.appendChild(closeBtn);
+    if (index == null) {
+        const btn = document.createElement("button");
+        btn.textContent = "close";
+        btn.type = "button";
+        formAction.appendChild(btn);
 
-    closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
+        btn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    } else {
+        const btn = document.createElement("button");
+        btn.textContent = "delete";
+        btn.type = "button";
+        formAction.appendChild(btn);
+
+        btn.addEventListener("click", () => {
+            deleteProjectBy(project.id);
+            modal.style.display = "none";
+            refreshPage();
+        });
+    }
 
     const submitBtn = document.createElement("button");
     submitBtn.textContent = "save";
