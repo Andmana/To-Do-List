@@ -4,7 +4,7 @@ import { Task } from "./Task";
 
 export const getFromLocalStorage = () => {
     const data = localStorage.getItem("myToDoList");
-    return data ? JSON.parse(data) : {}; // Gracefully return empty object if not found
+    return data ? JSON.parse(data) : {};
 };
 
 export const saveToLocalStorage = (projects, tasks) => {
@@ -13,8 +13,8 @@ export const saveToLocalStorage = (projects, tasks) => {
 
 export const updateLocalStorage = (projects = undefined, tasks = undefined) => {
     const data = getFromLocalStorage();
-    if (projects !== undefined) data.projects = projects;
-    if (tasks !== undefined) {
+    if (projects != undefined) data.projects = projects;
+    if (tasks != undefined) {
         tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
         data.tasks = tasks;
     }
@@ -22,7 +22,7 @@ export const updateLocalStorage = (projects = undefined, tasks = undefined) => {
 };
 
 export function getAllProjects() {
-    let { projects = [] } = getFromLocalStorage(); // Default to empty array if no projects
+    let { projects = [] } = getFromLocalStorage();
     projects = mapProjects(projects);
     for (let i = 0; i < projects.length; i++) {
         projects[i].id = i;
@@ -31,7 +31,7 @@ export function getAllProjects() {
 }
 
 export function getAllTasks() {
-    let { tasks = [] } = getFromLocalStorage(); // Default to empty array if no tasks
+    let { tasks = [] } = getFromLocalStorage();
     tasks = mapTasks(tasks);
     for (let i = 0; i < tasks.length; i++) {
         tasks[i].id = i;
@@ -61,8 +61,8 @@ export function getAllTasksBy(isCompleted, due, project) {
     let tasks = getAllTasks();
 
     if (filters[due]) tasks = tasks.filter((task) => filters[due](task.dueDate));
-    if (isCompleted != null) tasks = tasks.filter((task) => task.isCompleted === isCompleted);
-    if (project) tasks = tasks.filter((task) => task.project === project);
+    if (isCompleted != null) tasks = tasks.filter((task) => task.isCompleted == isCompleted);
+    if (project) tasks = tasks.filter((task) => task.project == project);
 
     return tasks;
 }
@@ -85,11 +85,11 @@ export const countAllTasksBy = (isCompleted, due, project) =>
 export function saveProject(name, id = null) {
     let projects = getAllProjects();
     let exists = projects.some(
-        (pj, index) => pj.name.toLowerCase() === name.toLowerCase() && index !== id
+        (pj, index) => pj.name.toLowerCase() == name.toLowerCase() && index != id
     );
     if (exists) return;
 
-    if (id !== null && projects[id]) {
+    if (id != null && projects[id]) {
         projects[id].name = name;
     } else {
         projects.push(new Project(name));
@@ -100,7 +100,7 @@ export function saveProject(name, id = null) {
 export function saveTask(objectForm, id = null) {
     let tasks = getAllTasks();
     let exists = tasks.some(
-        (t, index) => t.title.toLowerCase() === objectForm.title.toLowerCase() && index !== id
+        (t, index) => t.title.toLowerCase() == objectForm.title.toLowerCase() && index != id
     );
     if (exists) return;
 
@@ -113,7 +113,7 @@ export function saveTask(objectForm, id = null) {
         isCompleted: false,
     };
 
-    if (id !== null && tasks[id]) {
+    if (id != null && tasks[id]) {
         Object.assign(tasks[id], taskData);
     } else {
         tasks.push(

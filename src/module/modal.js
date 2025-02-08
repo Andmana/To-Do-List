@@ -141,7 +141,7 @@ export const loadTaskForm = (index = null) => {
                             <div class="form-group">
                                 <label for="dueDate">Date</label>
                                 <input type="date" id="dueDate" name="dueDate" value="${
-                                    task.dueDate !== "No Date" ? task.dueDate : ""
+                                    task.dueDate !== "No Date" ? task.dueDate || "" : ""
                                 }">
                             </div>
 
