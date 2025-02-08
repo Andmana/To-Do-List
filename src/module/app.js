@@ -20,7 +20,6 @@ export const refreshPage = () => {
 };
 
 export const refreshPage2 = () => {
-    resetCurrentState();
     loadSideBar();
     loadMain();
 };

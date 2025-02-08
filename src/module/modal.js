@@ -121,21 +121,21 @@ export const loadTaskForm = (index = null) => {
                             <div class="form-group">
                                 <label for="title">Title</label>
                                 <input type="text" id="title" name="title" value="${
-                                    task.title || null
+                                    task.title || ""
                                 }" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea id="description" name="description" rows="3" cols="40" wrap="soft" value="${
-                                    task.description || null
+                                    task.description || ""
                                 }"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="dueDate">Date</label>
                                 <input type="date" id="dueDate" name="dueDate" value="${
-                                    isDate(task.dueDate) ? task.dueDate : null
+                                    task.dueDate !== "No Date" ? task.dueDate : ""
                                 }">
                             </div>
 

@@ -1,4 +1,5 @@
-import { countAllTasksBy, getAllTasksBy } from "../class/queries.js";
+import { countAllTasksBy, getAllTasksBy, updateTaskProgress } from "../class/queries.js";
+import { refreshPage2 } from "./app.js";
 import { loadTaskForm, modalAction } from "./modal.js";
 import { currentState } from "./state.js";
 
@@ -27,18 +28,47 @@ export const generateMainContent = (hero, isCompleted, due, groupProject) => {
     getAllTasksBy(isCompleted, due, groupProject).forEach((task) => {
         const taskItem = document.createElement("div");
         taskItem.className = "task-item";
+        taskItem.setAttribute("data-index", task.id);
         tasksContainer.appendChild(taskItem);
         taskItem.innerHTML = `
                 <label class="checkbox">
-                    <input type="checkbox" ${task.isCompleted ? "checked" : ""} />
-                    <div class="checkmark"></div>
+                    <input type="checkbox" data-index="${task.id}" ${
+            task.isCompleted ? "checked" : ""
+        } />
+                    <p class="checkmark"></p>
                 </label>
                 <div class="badge ${task.priority}"></div>
                 <div>${task.title}</div>
                 <div class="date">${task.getFormatedDueDate}</div>`;
-        taskItem.addEventListener("click", () => {
-            loadTaskForm(task.id);
-            modalAction();
+    });
+    taskEvent();
+    checkboxEvent();
+};
+
+const checkboxEvent = () => {
+    const checkboxs = document.querySelectorAll(".checkbox > input");
+    checkboxs.forEach((checkbox) => {
+        const id = checkbox.getAttribute("data-index");
+        checkbox.addEventListener("change", () => {
+            alert(id);
+            updateTaskProgress(id);
+            refreshPage2();
+        });
+    });
+};
+
+const taskEvent = () => {
+    const tasks = document.querySelectorAll(".task-item");
+
+    tasks.forEach((task) => {
+        task.addEventListener("click", (event) => {
+            const id = task.getAttribute("data-index"); // Get the data-index of the clicked task
+            const target = event.target;
+
+            if (target.tagName === "DIV") {
+                loadTaskForm(id);
+                modalAction();
+            }
         });
     });
 };
