@@ -1,5 +1,11 @@
 import { isDate } from "date-fns";
-import { getAllProjects, getTaskByIndex, saveProject, saveTask } from "../class/queries";
+import {
+    deleteTaskBy,
+    getAllProjects,
+    getTaskByIndex,
+    saveProject,
+    saveTask,
+} from "../class/queries";
 import { refreshPage, refreshPage2 } from "./app";
 
 export const addModalOperation = () => {
@@ -177,8 +183,9 @@ export const loadTaskForm = (index = null) => {
         formAction.appendChild(btn);
 
         btn.addEventListener("click", () => {
-            alert("delete task");
+            deleteTaskBy(task.id);
             modal.style.display = "none";
+            refreshPage2();
         });
     }
 

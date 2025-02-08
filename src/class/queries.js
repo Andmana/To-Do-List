@@ -69,9 +69,13 @@ export function getAllTasksBy(isCompleted, due, project) {
 
 export function updateTaskProgress(index) {
     const tasks = getAllTasks();
-    console.log(tasks[index].isCompleted);
     tasks[index].isCompleted = tasks[index].isCompleted ? false : true;
-    console.log(tasks[index].isCompleted);
+    updateLocalStorage(undefined, tasks);
+}
+
+export function deleteTaskBy(index) {
+    const tasks = getAllProjects();
+    tasks.splice(index, 1);
     updateLocalStorage(undefined, tasks);
 }
 
