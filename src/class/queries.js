@@ -74,18 +74,13 @@ export function updateTaskProgress(index) {
 }
 
 export function deleteTaskBy(index) {
-    const tasks = getAllProjects();
+    const tasks = getAllTasks();
     tasks.splice(index, 1);
     updateLocalStorage(undefined, tasks);
 }
 
 export const countAllTasksBy = (isCompleted, due, project) =>
     getAllTasksBy(isCompleted, due, project).length;
-
-// export function updateTasksData(tasks) {
-//     tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-//     localStorage.setItem("tasks", JSON.stringify({ tasks }));
-// }
 
 export function saveProject(name, id = null) {
     let projects = getAllProjects();
