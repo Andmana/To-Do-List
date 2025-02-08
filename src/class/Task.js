@@ -27,4 +27,8 @@ export class Task {
         }
         return format(date, "EEE, dd MMM yyyy");
     }
+
+    get getFormatedDueDate2() {
+        return format(this.dueDate, "yyyy-MM-dd");
+    }
 }
