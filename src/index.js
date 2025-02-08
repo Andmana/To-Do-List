@@ -11,11 +11,12 @@ import {
     getAllProjects,
     getAllTasks,
     getFromLocalStorage,
+    getTaskByIndex,
     saveToLocalStorage,
 } from "./class/queries";
 
 const today = new Date();
-let tasks = [new Task("Task 0", "Description 1", today, "Low", "Default", true)];
+let tasks = [new Task("Task 0", "Description 1", today, "High", "Default", true)];
 
 const projects = [new Project("Default")];
 let data = getFromLocalStorage();
@@ -29,6 +30,9 @@ window.retrive = (is, by, group) => {
 
 window.get = () => {
     console.log(getAllTasks());
+};
+window.getId = () => {
+    console.log(getTaskByIndex(0));
 };
 
 window.getProjects = () => getAllProjects();

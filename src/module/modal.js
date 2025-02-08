@@ -1,21 +1,23 @@
-import { getAllProjects, saveProject, saveTask } from "../class/queries";
+import { isDate } from "date-fns";
+import { getAllProjects, getTaskByIndex, saveProject, saveTask } from "../class/queries";
 import { refreshPage, refreshPage2 } from "./app";
 
-export const modalProjectOperation = () => {
+export const addModalOperation = () => {
     const projectButton = document.querySelector("#add-project");
     projectButton.addEventListener("click", () => {
-        openModal();
         loadProjectForm();
+        modalAction();
     });
-    closeModal();
+
+    const taskButton = document.querySelector("#add-task");
+    taskButton.addEventListener("click", () => {
+        loadTaskForm(null);
+        modalAction();
+    });
 };
 
-export const modalTaskOperation = () => {
-    const projectButton = document.querySelector("#add-task");
-    projectButton.addEventListener("click", () => {
-        openModal();
-        loadTaskForm();
-    });
+export const modalAction = () => {
+    openModal();
     closeModal();
 };
 
@@ -88,11 +90,21 @@ const loadProjectForm = () => {
     });
 };
 
-const loadTaskForm = () => {
+export const loadTaskForm = (index = null) => {
+    const task = getTaskByIndex(index) || {};
     const projects = getAllProjects();
     let projectsOpt = "";
     projects.forEach((project) => {
-        projectsOpt += `<option value="${project.name}">${project.name}</option>`;
+        if (task.project == project.name)
+            projectsOpt += `<option value="${project.name}" selected>${project.name}</option>`;
+        else projectsOpt += `<option value="${project.name}">${project.name}</option>`;
+    });
+    const priorities = ["Low", "Medium", "High"];
+    let priorityOpt = "";
+    priorities.forEach((priority) => {
+        if (task.priority == priority)
+            priorityOpt += `<option value="${priority}" selected>${priority}</option>`;
+        else priorityOpt += `<option value="${priority}">${priority}</option>`;
     });
 
     const modal = document.querySelector("#modal-wrapper");
@@ -108,25 +120,31 @@ const loadTaskForm = () => {
     formInput.innerHTML = `
                             <div class="form-group">
                                 <label for="title">Title</label>
-                                <input type="text" id="title" name="title" required>
+                                <input type="text" id="title" name="title" value="${
+                                    task.title || null
+                                }" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea id="description" name="description" rows="3" cols="40" wrap="soft"></textarea>
+                                <textarea id="description" name="description" rows="3" cols="40" wrap="soft" value="${
+                                    task.description || null
+                                }"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="dueDate">Date</label>
-                                <input type="date" id="dueDate" name="dueDate">
+                                <input type="date" id="dueDate" name="dueDate" value="${
+                                    isDate(task.dueDate) ? task.dueDate : null
+                                }">
                             </div>
 
                             <div class="form-group">
                                 <label for="priority">Priority</label>
-                                <select name="priority" id="priority" required>
-                                    <option value="Low">Low</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="High">High</option>
+                                <select name="priority" id="priority" required value="${
+                                    task.priority
+                                }">
+                                    ${priorityOpt}
                                 </select>
                             </div>
 
@@ -138,19 +156,31 @@ const loadTaskForm = () => {
                             </div>
                         `;
     form.appendChild(formInput);
-
+    // Modal Action
     const formAction = document.createElement("div");
     formAction.className = "form-action";
     form.appendChild(formAction);
 
-    const closeBtn = document.createElement("button");
-    closeBtn.textContent = "close";
-    closeBtn.type = "button";
-    formAction.appendChild(closeBtn);
+    if (index === null) {
+        const btn = document.createElement("button");
+        btn.textContent = "close";
+        btn.type = "button";
+        formAction.appendChild(btn);
 
-    closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
+        btn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    } else {
+        const btn = document.createElement("button");
+        btn.textContent = "Delete";
+        btn.type = "button";
+        formAction.appendChild(btn);
+
+        btn.addEventListener("click", () => {
+            alert("delete task");
+            modal.style.display = "none";
+        });
+    }
 
     const submitBtn = document.createElement("button");
     submitBtn.textContent = "save";
@@ -167,9 +197,7 @@ const loadTaskForm = () => {
             objectForm[key] = value;
         });
 
-        alert(JSON.stringify(objectForm));
-
-        saveTask(objectForm);
+        saveTask(objectForm, index);
         refreshPage2();
         modal.style.display = "none";
     });

@@ -1,7 +1,7 @@
 import { loadSideBar } from "./sidebar.js";
 import { loadMain } from "./mainContent.js";
 import { loadStaticIcon } from "./imageSauce.js";
-import { modalProjectOperation, modalTaskOperation } from "./modal.js";
+import { addModalOperation } from "./modal.js";
 import { resetCurrentState } from "./state.js";
 
 export const init = (() => {
@@ -9,8 +9,7 @@ export const init = (() => {
         loadSideBar();
         loadStaticIcon();
         loadMain();
-        modalProjectOperation();
-        modalTaskOperation();
+        addModalOperation();
     });
 })();
 

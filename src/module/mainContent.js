@@ -1,4 +1,5 @@
 import { countAllTasksBy, getAllTasksBy } from "../class/queries.js";
+import { loadTaskForm, modalAction } from "./modal.js";
 import { currentState } from "./state.js";
 
 export const loadMain = () => {
@@ -18,24 +19,26 @@ export const generateMainContent = (hero, isCompleted, due, groupProject) => {
         due,
         groupProject
     );
-    document.querySelector("#pending-count").style.display =
-        hero === "Completed" ? "none" : "flex";
+    document.querySelector("#pending-count").style.display = hero === "Completed" ? "none" : "flex";
 
     const tasksContainer = document.querySelector("#task-list");
     tasksContainer.innerHTML = "";
 
     getAllTasksBy(isCompleted, due, groupProject).forEach((task) => {
-        tasksContainer.innerHTML += `
-            <div class="task-item">
+        const taskItem = document.createElement("div");
+        taskItem.className = "task-item";
+        tasksContainer.appendChild(taskItem);
+        taskItem.innerHTML = `
                 <label class="checkbox">
-                    <input type="checkbox" ${
-                        task.isCompleted ? "checked" : ""
-                    } />
+                    <input type="checkbox" ${task.isCompleted ? "checked" : ""} />
                     <div class="checkmark"></div>
                 </label>
                 <div class="badge ${task.priority}"></div>
                 <div>${task.title}</div>
-                <div class="date">${task.getFormatedDueDate}</div>
-            </div>`;
+                <div class="date">${task.getFormatedDueDate}</div>`;
+        taskItem.addEventListener("click", () => {
+            loadTaskForm(task.id);
+            modalAction();
+        });
     });
 };
