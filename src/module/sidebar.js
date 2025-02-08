@@ -3,11 +3,13 @@ import { setCurrentState } from "./state.js";
 import projectIcon from "../assets/icons/project.svg";
 import { createNavItem } from "./utils.js";
 import { loadMain } from "./mainContent.js";
+import { loadProjectForm, modalAction } from "./modal.js";
 
 export const loadSideBar = () => {
     updatePendingCount();
     setupSideBarEvents();
     generateProjectNavs();
+    attachEventListeners();
 };
 
 const setupSideBarEvents = () => {
@@ -56,10 +58,13 @@ const generateProjectNavs = () => {
 
     projects.forEach((project) => {
         const taskCount = countAllTasksBy(false, null, project.name);
-        const navItem = createNavItem(projectIcon, project.name, taskCount);
+        const navItem = createNavItem(projectIcon, project.name, taskCount, project.id);
 
-        navItem.addEventListener("click", () => {
-            generateMainContent(project.name, false, null, project.name);
+        navItem.addEventListener("click", (event) => {
+            if (event.target.classList.contains("edit-project")) {
+                return;
+            }
+            loadMain(project.name, false, null, project.name);
             setCurrentState(project.name, false, null, project.name, navItem.id);
         });
 
@@ -73,5 +78,16 @@ const updatePendingCount = () => {
 
     counters.forEach((count, index) => {
         count.innerHTML = countAllTasksBy(false, filters[index]);
+    });
+};
+
+const attachEventListeners = () => {
+    const editors = document.querySelectorAll(".edit-project");
+    editors.forEach((editor) => {
+        const id = editor.parentElement.dataset.index;
+        editor.addEventListener("click", () => {
+            modalAction();
+            loadProjectForm(id);
+        });
     });
 };

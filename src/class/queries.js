@@ -51,6 +51,10 @@ export function getTaskByIndex(index) {
     return getAllTasks()[index];
 }
 
+export function getProjectByIndex(index) {
+    return getAllProjects()[index];
+}
+
 export function getAllTasksBy(isCompleted, due, project) {
     const filters = {
         today: isToday,

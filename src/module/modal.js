@@ -2,6 +2,7 @@ import { isDate } from "date-fns";
 import {
     deleteTaskBy,
     getAllProjects,
+    getProjectByIndex,
     getTaskByIndex,
     saveProject,
     saveTask,
@@ -11,7 +12,7 @@ import { refreshPage, refreshPage2 } from "./app";
 export const addModalOperation = () => {
     const projectButton = document.querySelector("#add-project");
     projectButton.addEventListener("click", () => {
-        loadProjectForm();
+        loadProjectForm(null);
         modalAction();
     });
 
@@ -44,7 +45,9 @@ const closeModal = () => {
     };
 };
 
-const loadProjectForm = () => {
+export const loadProjectForm = (index = null) => {
+    const project = getProjectByIndex(index) || {};
+
     const modal = document.querySelector("#modal-wrapper");
     const modalBody = document.querySelector(".modal-body");
     modalBody.innerHTML = "";
@@ -58,7 +61,9 @@ const loadProjectForm = () => {
     formInput.innerHTML = `
                              <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" id="name" name="name" required>
+                                <input type="text" id="name" name="name" value="${
+                                    project.name || ""
+                                }" required>
                             </div>`;
     form.appendChild(formInput);
 
@@ -90,7 +95,7 @@ const loadProjectForm = () => {
             objectForm[key] = value;
         });
 
-        saveProject(objectForm.name);
+        saveProject(objectForm.name, index);
         refreshPage();
         modal.style.display = "none";
     });
