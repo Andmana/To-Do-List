@@ -3,7 +3,7 @@ import { setCurrentState } from "./state.js";
 import projectIcon from "../assets/icons/project.svg";
 import { createNavItem } from "./utils.js";
 import { loadMain } from "./mainContent.js";
-import { loadProjectForm, modalAction } from "./modal.js";
+import { loadProjectForm, openModal } from "./modal.js";
 
 export const loadSideBar = () => {
     updatePendingCount();
@@ -86,7 +86,7 @@ const attachEventListeners = () => {
     editors.forEach((editor) => {
         const id = editor.parentElement.dataset.index;
         editor.addEventListener("click", () => {
-            modalAction();
+            openModal();
             loadProjectForm(id);
         });
     });

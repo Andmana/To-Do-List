@@ -13,28 +13,23 @@ import { refreshPage, refreshPage2 } from "./app";
 export const addModalOperation = () => {
     const projectButton = document.querySelector("#add-project");
     projectButton.addEventListener("click", () => {
+        openModal();
         loadProjectForm(null);
-        modalAction();
     });
 
     const taskButton = document.querySelector("#add-task");
     taskButton.addEventListener("click", () => {
+        openModal();
         loadTaskForm(null);
-        modalAction();
     });
 };
 
-export const modalAction = () => {
-    openModal();
-    closeModal();
-};
-
-const openModal = () => {
+export const openModal = () => {
     const modal = document.querySelector("#modal-wrapper");
     modal.style.display = "flex";
 };
 
-const closeModal = () => {
+export const attachCloseModalEvent = () => {
     const modal = document.querySelector("#modal-wrapper");
     const closeIcon = document.querySelector(".close");
 
