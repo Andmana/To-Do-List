@@ -102,27 +102,52 @@ export const sidebarDisplayEvent = () => {
     const sidebarIcon1 = document.querySelector("#sidebar-icon-1st");
     const sidebarIcon2 = document.querySelector("#sidebar-icon-2nd");
     const sidebar = document.querySelector("#sidebar");
-    sidebarIcon1.addEventListener("click", () => {
+    const main = document.querySelector("#section");
+
+    const toggleSidebar = () => {
+        sidebar.classList.remove("show-sidebar");
         sidebar.style.display = "none";
-        sidebarIcon2.style.display = "unset";
-    });
+        sidebarIcon2.style.display = "block";
+        main.classList.remove("light-out");
+    };
+
+    const showSidebar = () => {
+        sidebar.style.display = "block";
+        sidebar.classList.add("show-sidebar");
+        main.classList.add("light-out");
+        if (!window.innerWidth <= 768) sidebarIcon2.style.display = "none";
+        else sidebarIcon2.style.display = "block"; // For non-mobile
+    };
+
+    sidebarIcon1.addEventListener("click", toggleSidebar);
 
     sidebarIcon2.addEventListener("click", () => {
-        sidebar.style.display = "unset";
-        sidebarIcon2.style.display = "none";
-    });
-
-    function toggleSidebar() {
         if (window.innerWidth <= 768) {
-            sidebar.style.display = "none";
-            sidebar.classList.add("display-fixed");
-            sidebarIcon2.style.display = "unset";
+            showSidebar();
         } else {
             sidebar.style.display = "block";
-            sidebar.classList.remove("display-fixed");
+            sidebar.classList.remove("show-sidebar");
             sidebarIcon2.style.display = "none";
         }
-    }
+    });
 
-    window.addEventListener("resize", toggleSidebar);
+    window.addEventListener("resize", () => {
+        if (window.innerWidth <= 768) {
+            sidebarIcon2.style.display = "block";
+        } else if (window.getComputedStyle(sidebar).display === "block") {
+            sidebarIcon2.style.display = "none";
+            main.classList.remove("light-out");
+        }
+    });
+
+    window.addEventListener("click", (event) => {
+        if (
+            !sidebar.contains(event.target) &&
+            !sidebarIcon2.contains(event.target) &&
+            window.innerWidth <= 768
+        ) {
+            sidebar.classList.remove("show-sidebar");
+            main.classList.remove("light-out");
+        }
+    });
 };

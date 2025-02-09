@@ -131,7 +131,7 @@ body > div {
     padding-right: 10px !important;
     display: flex;
     flex-direction: column;
-    z-index: 2;
+    transition: left ease 0.3s;
 }
 
 .display-fixed {
@@ -141,7 +141,7 @@ body > div {
 }
 
 .sidebar-icons {
-    padding: 10px;
+    flex-shrink: 0;
 }
 
 #sidebar-icon-2nd {
@@ -245,11 +245,16 @@ body > div {
     flex-direction: column;
 }
 
+.light-out {
+    filter: brightness(50%);
+}
+
 .header {
+    flex-shrink: 0;
+    flex-basis: 50px;
+
     color: var(--text-secondary);
     margin-bottom: 10px;
-
-    flex-basis: 50px;
     height: 50px;
     display: flex;
     align-items: center;
@@ -316,7 +321,9 @@ body > div {
 }
 
 #task-list {
-    width: 700px;
+    max-width: 700px;
+    width: 100%;
+    min-width: 300px;
 }
 
 .month {
@@ -493,4 +500,27 @@ body > div {
     border-radius: 5px;
     border: 2px solid var(--background-input);
     background-color: var(--background-main);
+}
+
+.show-sidebar {
+    left: 0 !important;
+    z-index: 1;
+}
+
+.dispal-none {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        display: block;
+        position: fixed;
+        left: -300px;
+        min-height: 100vh;
+        min-width: 250px;
+    }
+
+    #sidebar-icon-2nd {
+        display: block;
+    }
 }
