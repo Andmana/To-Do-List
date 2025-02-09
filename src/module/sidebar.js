@@ -2,7 +2,7 @@ import { countAllTasksBy, getAllProjects } from "../class/queries.js";
 import { setCurrentState } from "./state.js";
 import projectIcon from "../assets/icons/project.svg";
 import { loadMain } from "./mainContent.js";
-import { loadProjectForm, openModal } from "./modal.js";
+import { loadProjectForm } from "./modal.js";
 
 export const loadSideBar = () => {
     updateTaskPendingCount();
@@ -70,7 +70,7 @@ const generateProjectNavs = () => {
 
         navItem.addEventListener("click", (event) => {
             if (event.target.classList.contains("edit-project")) {
-                openModal();
+                document.querySelector("#modal-wrapper").style.display = "flex";
                 loadProjectForm(project.id);
                 return;
             }

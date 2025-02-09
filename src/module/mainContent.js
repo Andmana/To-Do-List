@@ -1,6 +1,6 @@
 import { countAllTasksBy, getAllTasksBy, updateTaskProgress } from "../class/queries.js";
 import { refreshPage2 } from "./app.js";
-import { loadTaskForm, openModal } from "./modal.js";
+import { loadTaskForm } from "./modal.js";
 import { currentState } from "./state.js";
 
 export const loadMain = () => {
@@ -59,7 +59,7 @@ const attachEventListeners = () => {
             if (event.target.tagName === "DIV") {
                 const id = task.getAttribute("data-index");
                 loadTaskForm(id);
-                openModal();
+                document.querySelector("#modal-wrapper").style.display = "flex";
             }
         });
     });
