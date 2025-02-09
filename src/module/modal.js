@@ -24,7 +24,7 @@ export const addModalOperation = () => {
     });
 };
 
-export const openModal = () => {
+const openModal = () => {
     const modal = document.querySelector("#modal-wrapper");
     modal.style.display = "flex";
 };
@@ -52,61 +52,43 @@ export const loadProjectForm = (index = null) => {
     form.id = "project-form";
     modalBody.appendChild(form);
 
-    const formInput = document.createElement("div");
-    formInput.className = "form-input";
-    formInput.innerHTML = `
-                             <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" value="${
-                                    project.name || ""
-                                }" required>
-                            </div>`;
-    form.appendChild(formInput);
-
-    const formAction = document.createElement("div");
-    formAction.className = "form-action";
-    form.appendChild(formAction);
-
-    if (index == null) {
-        const btn = document.createElement("button");
-        btn.textContent = "close";
-        btn.type = "button";
-        formAction.appendChild(btn);
-
-        btn.addEventListener("click", () => {
-            modal.style.display = "none";
-        });
-    } else {
-        const btn = document.createElement("button");
-        btn.textContent = "delete";
-        btn.type = "button";
-        formAction.appendChild(btn);
-
-        btn.addEventListener("click", () => {
+    form.innerHTML = `
+        <div class="form-input">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="${project.name || ""}" required>
+            </div>
+        </div>
+        <div class="form-action">
+            ${
+                index === null
+                    ? `<button type="button" id="close-btn">Close</button>`
+                    : `<button type="button" id="delete-btn">Delete</button>`
+            }
+            <button type="submit">Save</button>
+        </div>
+    `;
+    const closeBtn = document.querySelector("#close-btn");
+    const deleteBtn = document.querySelector("#delete-btn");
+    if (closeBtn) closeBtn.addEventListener("click", () => (modal.style.display = "none"));
+    if (deleteBtn)
+        deleteBtn.addEventListener("click", () => {
             deleteProjectBy(project.id);
             modal.style.display = "none";
             refreshPage();
         });
-    }
-
-    const submitBtn = document.createElement("button");
-    submitBtn.textContent = "save";
-    submitBtn.type = "submit";
-    formAction.appendChild(submitBtn);
 
     form.addEventListener("submit", function (event) {
         event.preventDefault();
-
         const formData = new FormData(form);
         const objectForm = {};
-
         formData.forEach(function (value, key) {
             objectForm[key] = value;
         });
 
         saveProject(objectForm.name, index);
-        refreshPage();
         modal.style.display = "none";
+        refreshPage();
     });
 };
 
@@ -191,7 +173,7 @@ export const loadTaskForm = (index = null) => {
         const formData = new FormData(form);
         const objectForm = Object.fromEntries(formData.entries());
         saveTask(objectForm, index);
-        refreshPage2();
         modal.style.display = "none";
+        refreshPage2();
     });
 };
