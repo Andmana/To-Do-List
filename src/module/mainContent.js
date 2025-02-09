@@ -26,10 +26,11 @@ export const generateMainContent = (hero, isCompleted, due, groupProject) => {
     const tasksContainer = document.querySelector("#task-list");
     tasksContainer.innerHTML = "";
 
-    getAllTasksBy(isCompleted, due, groupProject).forEach((task) => {
+    const tasks = getAllTasksBy(isCompleted, due, groupProject);
+    tasks.forEach((task) => {
         const taskItem = document.createElement("div");
         taskItem.className = "task-item";
-        taskItem.setAttribute("data-index", task.id);
+        taskItem.dataset.index = task.id;
         taskItem.innerHTML = `
             <label class="checkbox">
                 <input type="checkbox" data-index="${task.id}" ${
