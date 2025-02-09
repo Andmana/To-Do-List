@@ -152,6 +152,7 @@ textarea {
     border-radius: 5px;
 
     text-align: start;
+    position: relative;
 
     display: flex;
     gap: 10px;
@@ -182,6 +183,28 @@ textarea {
     width: 20px;
     height: 20px;
     filter: invert(88%) sepia(8%) saturate(0%) hue-rotate(282deg) brightness(105%) contrast(89%);
+}
+
+.edit-project {
+    display: none;
+    align-items: center;
+
+    position: absolute;
+    right: 13px;
+    top: -3px;
+    z-index: 5;
+    font-weight: bolder;
+    font-size: 1.2rem !important;
+}
+
+.nav-item:hover > .edit-project,
+.active > .edit-project {
+    display: flex;
+}
+
+.nav-item:hover > .pending-count,
+.active > .pending-count {
+    display: none;
 }
 
 /***************/
