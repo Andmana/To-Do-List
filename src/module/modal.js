@@ -11,48 +11,44 @@ import {
 import { refreshPage, refreshPage2 } from "./app";
 
 export const addModalOperation = () => {
-    const projectButton = document.querySelector("#add-project");
-    projectButton.addEventListener("click", () => {
-        openModal();
-        loadProjectForm(null);
-    });
-
-    const taskButton = document.querySelector("#add-task");
-    taskButton.addEventListener("click", () => {
-        openModal();
-        loadTaskForm(null);
-    });
+    document.querySelector("#add-project").addEventListener("click", () => openProjectForm());
+    document.querySelector("#add-task").addEventListener("click", () => openTaskForm());
 };
 
 const openModal = () => {
-    const modal = document.querySelector("#modal-wrapper");
-    modal.style.display = "flex";
+    document.querySelector("#modal-wrapper").style.display = "flex";
 };
 
 export const attachCloseModalEvent = () => {
     const modal = document.querySelector("#modal-wrapper");
-    const closeIcon = document.querySelector(".close");
-
-    closeIcon.onclick = () => (modal.style.display = "none");
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
+    document.querySelector(".close").onclick = () => (modal.style.display = "none");
+    window.onclick = (event) => {
+        if (event.target === modal) modal.style.display = "none";
     };
+};
+
+const openProjectForm = (index = null) => {
+    openModal();
+    loadProjectForm(index);
+};
+
+const openTaskForm = (index = null) => {
+    openModal();
+    loadTaskForm(index);
+};
+
+const createForm = (innerHTML) => {
+    const form = document.createElement("form");
+    form.innerHTML = innerHTML;
+    return form;
 };
 
 export const loadProjectForm = (index = null) => {
     const project = getProjectByIndex(index) || {};
-
-    const modal = document.querySelector("#modal-wrapper");
     const modalBody = document.querySelector(".modal-body");
     modalBody.innerHTML = "";
 
-    const form = document.createElement("form");
-    form.id = "project-form";
-    modalBody.appendChild(form);
-
-    form.innerHTML = `
+    const form = createForm(`
         <div class="form-input">
             <div class="form-group">
                 <label for="name">Name</label>
@@ -60,44 +56,35 @@ export const loadProjectForm = (index = null) => {
             </div>
         </div>
         <div class="form-action">
-            ${
-                index === null
-                    ? `<button type="button" id="close-btn">Close</button>`
-                    : `<button type="button" id="delete-btn">Delete</button>`
-            }
-            <button type="submit">Save</button>
+            <button type="button" id="close-btn">Close</button>
+            ${index !== null ? `<button type="button" id="delete-btn" >Delete</button>` : ""}
+            <button type="submit" >Save</button>
         </div>
-    `;
-    const closeBtn = document.querySelector("#close-btn");
-    const deleteBtn = document.querySelector("#delete-btn");
-    if (closeBtn) closeBtn.addEventListener("click", () => (modal.style.display = "none"));
-    if (deleteBtn)
-        deleteBtn.addEventListener("click", () => {
-            deleteProjectBy(project.id);
-            modal.style.display = "none";
-            refreshPage();
-        });
+    `);
 
-    form.addEventListener("submit", function (event) {
+    modalBody.appendChild(form);
+
+    document.querySelector("#close-btn").addEventListener("click", () => closeModal());
+    document.querySelector("#delete-btn")?.addEventListener("click", () => {
+        deleteProjectBy(project.id);
+        closeModal();
+        refreshPage();
+    });
+
+    form.addEventListener("submit", (event) => {
         event.preventDefault();
-        const formData = new FormData(form);
-        const objectForm = {};
-        formData.forEach(function (value, key) {
-            objectForm[key] = value;
-        });
-
-        saveProject(objectForm.name, index);
-        modal.style.display = "none";
+        saveProject(new FormData(form).get("name"), index);
+        closeModal();
         refreshPage();
     });
 };
 
 export const loadTaskForm = (index = null) => {
     const task = getTaskByIndex(index) || {};
-    const projects = getAllProjects();
+    const projects = getAllProjects().map((p) => p.name);
 
-    const generateOptions = (items, selectedItem) => {
-        return items
+    const generateOptions = (items, selectedItem) =>
+        items
             .map(
                 (item) =>
                     `<option value="${item}" ${
@@ -105,23 +92,11 @@ export const loadTaskForm = (index = null) => {
                     }>${item}</option>`
             )
             .join("");
-    };
 
-    const projectsOpt = generateOptions(
-        projects.map((p) => p.name),
-        task.project
-    );
-    const priorityOpt = generateOptions(["Low", "Medium", "High"], task.priority);
-
-    const modal = document.querySelector("#modal-wrapper");
     const modalBody = document.querySelector(".modal-body");
     modalBody.innerHTML = "";
 
-    const form = document.createElement("form");
-    form.id = "project-form";
-    modalBody.appendChild(form);
-
-    form.innerHTML = `
+    const form = createForm(`
         <div class="form-input">
             <div class="form-group">
                 <label for="title">Title</label>
@@ -141,39 +116,43 @@ export const loadTaskForm = (index = null) => {
             </div>
             <div class="form-group">
                 <label for="priority">Priority</label>
-                <select name="priority" id="priority" required>${priorityOpt}</select>
+                <select name="priority" id="priority" required>${generateOptions(
+                    ["Low", "Medium", "High"],
+                    task.priority
+                )}</select>
             </div>
             <div class="form-group">
                 <label for="project">Project</label>
-                <select name="project" id="project" required>${projectsOpt}</select>
+                <select name="project" id="project" required>${generateOptions(
+                    projects,
+                    task.project
+                )}</select>
             </div>
         </div>
         <div class="form-action">
-            ${
-                index === null
-                    ? `<button type="button" id="close-btn">Close</button>`
-                    : `<button type="button" id="delete-btn">Delete</button>`
-            }
-            <button type="submit">Save</button>
+            <button type="button" id="close-btn">Close</button>
+            ${index !== null ? `<button type="button" id="delete-btn" >Delete</button>` : ""}
+            <button type="submit" >Save</button>
         </div>
-    `;
+    `);
 
-    const closeBtn = document.querySelector("#close-btn");
-    const deleteBtn = document.querySelector("#delete-btn");
-    if (closeBtn) closeBtn.addEventListener("click", () => (modal.style.display = "none"));
-    if (deleteBtn)
-        deleteBtn.addEventListener("click", () => {
-            deleteTaskBy(task.id);
-            modal.style.display = "none";
-            refreshPage2();
-        });
+    modalBody.appendChild(form);
 
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        const formData = new FormData(form);
-        const objectForm = Object.fromEntries(formData.entries());
-        saveTask(objectForm, index);
-        modal.style.display = "none";
+    document.querySelector("#close-btn").addEventListener("click", () => closeModal());
+    document.querySelector("#delete-btn")?.addEventListener("click", () => {
+        deleteTaskBy(task.id);
+        closeModal();
         refreshPage2();
     });
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        saveTask(Object.fromEntries(new FormData(form).entries()), index);
+        closeModal();
+        refreshPage2();
+    });
+};
+
+const closeModal = () => {
+    document.querySelector("#modal-wrapper").style.display = "none";
 };
