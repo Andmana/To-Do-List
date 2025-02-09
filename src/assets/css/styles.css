@@ -68,8 +68,8 @@ h6 {
 /***************/
 
 :root {
-    --text-main: #ececec;
-    --text-secondary: #e4e4e7;
+    --text-main: #e4e4e7;
+    --text-secondary: #b3b3b3;
     --background-main: #171717;
     --background-secondary: #212121;
     --background-input: #373737;
@@ -77,7 +77,8 @@ h6 {
 
 button,
 input,
-select {
+select,
+a {
     all: unset;
     cursor: pointer;
 }
@@ -92,9 +93,10 @@ textarea {
 #root {
     position: relative;
     min-height: 100vh;
-    font-size: 0.9rem;
+    font-size: 0.78rem;
     display: flex;
     letter-spacing: 0.8px;
+    font-family: Monaco, "Courier New", "Lucida Console", monospace;
 }
 
 #sidebar-logo {
@@ -111,9 +113,9 @@ textarea {
 }
 
 .logo-icon {
-    width: 30px;
-    height: 30px;
-    filter: invert(88%) sepia(8%) saturate(0%) hue-rotate(282deg) brightness(105%) contrast(89%);
+    width: 24px;
+    height: 24px;
+    filter: invert(86%) sepia(1%) saturate(0%) hue-rotate(236deg) brightness(87%) contrast(81%);
 }
 
 /***************/
@@ -124,21 +126,22 @@ textarea {
 /***************/
 
 #sidebar {
-    flex-basis: 250px;
+    flex-basis: 270px;
     background-color: var(--background-main);
     color: var(--text-main);
 
-    padding: 13.5px;
+    padding: 16px;
     padding-top: 100px;
 }
+
 .nav-title {
     padding: 9px;
+    color: var(--text-secondary);
 }
 
 .nav-group {
     display: flex;
     flex-direction: column;
-    gap: 5px;
 
     margin-bottom: 30px;
 }
@@ -155,9 +158,11 @@ textarea {
     position: relative;
 
     display: flex;
-    gap: 10px;
+    gap: 20px;
     justify-content: space-between;
     align-items: center;
+
+    margin-bottom: 15px;
 }
 
 .nav-item:hover {
@@ -180,8 +185,8 @@ textarea {
 }
 
 .nav-icon {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     filter: invert(88%) sepia(8%) saturate(0%) hue-rotate(282deg) brightness(105%) contrast(89%);
 }
 
@@ -190,11 +195,10 @@ textarea {
     align-items: center;
 
     position: absolute;
-    right: 13px;
-    top: -3px;
+    right: 9px;
     z-index: 5;
     font-weight: bolder;
-    font-size: 1.2rem !important;
+    font-size: 0.7rem !important;
 }
 
 .project-link.nav-item:hover > .edit-project,
@@ -225,11 +229,13 @@ textarea {
 }
 
 #header {
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+
     flex-basis: 50px;
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
 }
 
 #header h2 {
@@ -243,6 +249,11 @@ textarea {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+}
+
+#main-hero {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
 }
 
 #status {
@@ -276,7 +287,6 @@ textarea {
 }
 
 #add-task:hover {
-    border: 2px solid var(--text-main);
     background-color: var(--background-secondary);
 }
 
