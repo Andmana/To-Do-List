@@ -13,26 +13,26 @@ export const loadSideBar = () => {
 export const setupTaskNavEvents = () => {
     const navItems = [
         {
-            id: "#task-today",
+            id: "#today-task",
             text: "Today",
             type: "today-task",
             value: "today",
         },
         {
-            id: "#task-tomorrow",
+            id: "#tomorrow-task",
             text: "Tomorrow",
             type: "tomorrow-task",
             value: "tomorrow",
         },
         {
-            id: "#task-week",
+            id: "#week-task",
             text: "This Week",
             type: "week-task",
             value: "week",
         },
-        { id: "#task-all", text: "All", type: "all-task", value: "all" },
+        { id: "#all-task", text: "All", type: "all-task", value: "all" },
         {
-            id: "#task-completed",
+            id: "#completed-task",
             text: "Completed",
             type: "completed-task",
             value: "all",

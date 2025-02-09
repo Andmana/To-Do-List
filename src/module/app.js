@@ -2,10 +2,11 @@ import { loadSideBar, setupTaskNavEvents } from "./sidebar.js";
 import { loadMain } from "./mainContent.js";
 import { loadStaticIcon } from "./imageSauce.js";
 import { addModalOperation, attachCloseModalEvent, modalAction } from "./modal.js";
-import { resetCurrentState } from "./state.js";
+import { resetCurrentState, setActiveNav } from "./state.js";
 
 export const init = (() => {
     document.addEventListener("DOMContentLoaded", () => {
+        setActiveNav("today-task");
         setupTaskNavEvents();
         loadSideBar();
         loadStaticIcon();
