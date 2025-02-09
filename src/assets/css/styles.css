@@ -197,13 +197,13 @@ textarea {
     font-size: 1.2rem !important;
 }
 
-.nav-item:hover > .edit-project,
-.active > .edit-project {
+.project-link.nav-item:hover > .edit-project,
+.project-link.active > .edit-project {
     display: flex;
 }
 
-.nav-item:hover > .pending-count,
-.active > .pending-count {
+.project-link.nav-item:hover > .pending-count,
+.project-link.active > .pending-count {
     display: none;
 }
 

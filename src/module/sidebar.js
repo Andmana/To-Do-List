@@ -86,7 +86,7 @@ const createNavItem = (iconSrc, name, counter, id) => {
     const navItem = document.createElement("div");
     navItem.id = `${name.toLowerCase()}-project`;
     navItem.dataset.index = id;
-    navItem.className = "nav-item";
+    navItem.className = "nav-item project-link";
 
     navItem.innerHTML = `
         <img class="nav-icon" src="${iconSrc}" alt="${name}">
