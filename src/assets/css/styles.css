@@ -99,17 +99,17 @@ textarea {
     font-family: Monaco, "Courier New", "Lucida Console", monospace;
 }
 
-#sidebar-logo {
-    position: fixed;
-    padding: 6px;
-
-    top: 13.5px;
-    left: 13.5px;
+#root > div {
+    padding: 10px 20px;
 }
 
-#sidebar-logo:hover {
+.sidebar-icons {
+    padding: 10px;
+}
+
+.sidebar-icons:hover {
     border-radius: 5px;
-    background-color: var(--background-secondary);
+    background-color: var(--background-input);
 }
 
 .logo-icon {
@@ -130,8 +130,9 @@ textarea {
     background-color: var(--background-main);
     color: var(--text-main);
 
-    padding: 16px;
-    padding-top: 100px;
+    padding-right: 10px !important;
+    display: flex;
+    flex-direction: column;
 }
 
 .nav-title {
@@ -224,21 +225,30 @@ textarea {
 
     display: flex;
     flex-direction: column;
-
-    padding: 10px 30px;
 }
 
-#header {
+.header {
     color: var(--text-secondary);
     margin-bottom: 10px;
 
     flex-basis: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-#header h2 {
+#sidebar-icon-2nd {
+    display: none;
+}
+
+#main-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header h2 {
     font-weight: 450;
 }
 

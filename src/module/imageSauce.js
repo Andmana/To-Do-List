@@ -8,20 +8,15 @@ import weekIcon from "../assets/icons/week.svg";
 import sidebarIcon from "../assets/icons/sidebar.svg";
 
 export const loadStaticIcon = () => {
-    const taskIcons = [
-        todayIcon,
-        tomorrowIcon,
-        weekIcon,
-        allIcon,
-        completedIcon,
-    ];
+    const taskIcons = [todayIcon, tomorrowIcon, weekIcon, allIcon, completedIcon];
     const taskImgs = document.querySelectorAll(".task-link > img");
     taskImgs.forEach((link, index) => {
         link.src = taskIcons[index];
     });
 
-    document.querySelector("#sidebar-logo > img").src = sidebarIcon;
-    document.querySelector("#header > img").src = logoIcon;
+    document.querySelector("#sidebar-icon-1st > img").src = sidebarIcon;
+    document.querySelector("#sidebar-icon-2nd > img").src = sidebarIcon;
+    document.querySelector("#main-logo > img").src = logoIcon;
     document.querySelector("#add-task > img").src = addIcon;
     document.querySelector("#add-project > img").src = addIcon;
 };

@@ -91,9 +91,24 @@ const createNavItem = (iconSrc, name, counter, id) => {
     navItem.innerHTML = `
         <img class="nav-icon" src="${iconSrc}" alt="${name}">
         <div class="nav-name">${name}</div>
-        <div class="edit-project">...</div>
+        <div class="edit-project">•••</div>
         <div class="pending-count">${counter}</div>
     `;
 
     return navItem;
+};
+
+export const sidebarDisplayEvent = () => {
+    const sidebarIcon1 = document.querySelector("#sidebar-icon-1st");
+    const sidebarIcon2 = document.querySelector("#sidebar-icon-2nd");
+    const sidebar = document.querySelector("#sidebar");
+    sidebarIcon1.addEventListener("click", () => {
+        sidebar.style.display = "none";
+        sidebarIcon2.style.display = "unset";
+    });
+
+    sidebarIcon2.addEventListener("click", () => {
+        sidebar.style.display = "unset";
+        sidebarIcon2.style.display = "none";
+    });
 };
