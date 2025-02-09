@@ -1,18 +1,16 @@
 import { countAllTasksBy, getAllProjects } from "../class/queries.js";
 import { setCurrentState } from "./state.js";
 import projectIcon from "../assets/icons/project.svg";
-import { createNavItem } from "./utils.js";
 import { loadMain } from "./mainContent.js";
 import { loadProjectForm, openModal } from "./modal.js";
 
 export const loadSideBar = () => {
-    updatePendingCount();
-    setupSideBarEvents();
+    updateTaskPendingCount();
     generateProjectNavs();
-    attachEventListeners();
 };
 
-const setupSideBarEvents = () => {
+// One Time Run / Static
+export const setupTaskNavEvents = () => {
     const navItems = [
         {
             id: "#task-today",
@@ -45,9 +43,19 @@ const setupSideBarEvents = () => {
     navItems.forEach(({ id, text, type, value, isCompleted = false }) => {
         const navElement = document.querySelector(id);
         navElement?.addEventListener("click", () => {
-            loadMain(text, isCompleted, value, null);
             setCurrentState(text, isCompleted, value, null, type);
+            loadMain();
         });
+    });
+};
+
+// Dinamis
+const updateTaskPendingCount = () => {
+    const countersTask = document.querySelectorAll("#tasks-nav .pending-count");
+    const filters = ["today", "tomorrow", "week", null];
+
+    countersTask.forEach((count, index) => {
+        count.innerHTML = countAllTasksBy(false, filters[index]);
     });
 };
 
@@ -62,32 +70,30 @@ const generateProjectNavs = () => {
 
         navItem.addEventListener("click", (event) => {
             if (event.target.classList.contains("edit-project")) {
+                openModal();
+                loadProjectForm(project.id);
                 return;
             }
-            loadMain(project.name, false, null, project.name);
             setCurrentState(project.name, false, null, project.name, navItem.id);
+            loadMain();
         });
 
         navWrapper.appendChild(navItem);
     });
 };
 
-const updatePendingCount = () => {
-    const counters = document.querySelectorAll("#tasks-nav .pending-count");
-    const filters = ["today", "tomorrow", "week", null];
+const createNavItem = (iconSrc, name, counter, id) => {
+    const navItem = document.createElement("div");
+    navItem.id = `${name.toLowerCase()}-project`;
+    navItem.dataset.index = id;
+    navItem.className = "nav-item";
 
-    counters.forEach((count, index) => {
-        count.innerHTML = countAllTasksBy(false, filters[index]);
-    });
-};
+    navItem.innerHTML = `
+        <img class="nav-icon" src="${iconSrc}" alt="${name}">
+        <div class="nav-name">${name}</div>
+        <div class="edit-project">...</div>
+        <div class="pending-count">${counter}</div>
+    `;
 
-const attachEventListeners = () => {
-    const editors = document.querySelectorAll(".edit-project");
-    editors.forEach((editor) => {
-        const id = editor.parentElement.dataset.index;
-        editor.addEventListener("click", () => {
-            openModal();
-            loadProjectForm(id);
-        });
-    });
+    return navItem;
 };

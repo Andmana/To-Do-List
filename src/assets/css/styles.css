@@ -164,6 +164,11 @@ textarea {
     background-color: var(--background-secondary);
 }
 
+.active {
+    border-radius: 5px;
+    background-color: var(--background-secondary);
+}
+
 .nav-name {
     flex-grow: 1;
 }
@@ -375,9 +380,9 @@ textarea {
     color: var(--text-main);
     margin: auto;
     padding: 20px;
-    border: 2px solid var(--text-main);
+    border: 2px solid var(--background-main);
     border-radius: 10px;
-    width: 400px;
+    width: 450px;
 }
 
 /* The Close Button */
