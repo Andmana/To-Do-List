@@ -73,7 +73,22 @@ h6 {
     --background-main: #171717;
     --background-secondary: #212121;
     --background-input: #373737;
+    font-family: Monaco, "Courier New", "Lucida Console", monospace;
 }
+
+body {
+    min-height: 100vh;
+    font-size: 0.78rem;
+    display: flex;
+    letter-spacing: 0.8px;
+}
+
+/* This will apply styles only for devices with a screen width of 600px or less (like mobile devices) */
+/* @media (max-width: 768px) {
+    body {
+        grid-template-columns: 1fr;
+    }
+} */
 
 button,
 input,
@@ -90,26 +105,8 @@ textarea {
     resize: vertical;
 }
 
-#root {
-    position: relative;
-    min-height: 100vh;
-    font-size: 0.78rem;
-    display: flex;
-    letter-spacing: 0.8px;
-    font-family: Monaco, "Courier New", "Lucida Console", monospace;
-}
-
-#root > div {
+body > div {
     padding: 10px 20px;
-}
-
-.sidebar-icons {
-    padding: 10px;
-}
-
-.sidebar-icons:hover {
-    border-radius: 5px;
-    background-color: var(--background-input);
 }
 
 .logo-icon {
@@ -134,6 +131,26 @@ textarea {
     padding-right: 10px !important;
     display: flex;
     flex-direction: column;
+    z-index: 2;
+}
+
+.display-fixed {
+    position: fixed !important;
+    width: 250px;
+    min-height: 100vh;
+}
+
+.sidebar-icons {
+    padding: 10px;
+}
+
+#sidebar-icon-2nd {
+    display: none;
+}
+
+.sidebar-icons:hover {
+    border-radius: 5px;
+    background-color: var(--background-input);
 }
 
 .nav-title {
@@ -198,7 +215,7 @@ textarea {
 
     position: absolute;
     right: 9px;
-    z-index: 5;
+    z-index: 1;
     font-weight: bolder;
     font-size: 0.7rem !important;
 }
@@ -223,7 +240,7 @@ textarea {
     flex-grow: 1;
     background-color: var(--background-secondary);
     color: var(--text-main);
-
+    max-width: 100vw;
     display: flex;
     flex-direction: column;
 }
@@ -239,14 +256,11 @@ textarea {
     gap: 10px;
 }
 
-#sidebar-icon-2nd {
-    display: none;
-}
-
 #main-logo {
     display: flex;
     align-items: center;
     gap: 10px;
+    z-index: 0;
 }
 
 .header h2 {
@@ -401,7 +415,7 @@ textarea {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 10; /* Sit on top */
     justify-content: center;
     align-items: center;
     width: 100%; /* Full width */

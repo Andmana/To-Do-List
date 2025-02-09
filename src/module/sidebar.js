@@ -115,9 +115,11 @@ export const sidebarDisplayEvent = () => {
     function toggleSidebar() {
         if (window.innerWidth <= 768) {
             sidebar.style.display = "none";
+            sidebar.classList.add("display-fixed");
             sidebarIcon2.style.display = "unset";
         } else {
             sidebar.style.display = "block";
+            sidebar.classList.remove("display-fixed");
             sidebarIcon2.style.display = "none";
         }
     }
