@@ -111,4 +111,16 @@ export const sidebarDisplayEvent = () => {
         sidebar.style.display = "unset";
         sidebarIcon2.style.display = "none";
     });
+
+    function toggleSidebar() {
+        if (window.innerWidth <= 768) {
+            sidebar.style.display = "none";
+            sidebarIcon2.style.display = "unset";
+        } else {
+            sidebar.style.display = "block";
+            sidebarIcon2.style.display = "none";
+        }
+    }
+
+    window.addEventListener("resize", toggleSidebar);
 };

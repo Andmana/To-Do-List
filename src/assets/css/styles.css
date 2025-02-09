@@ -126,6 +126,7 @@ textarea {
 /***************/
 
 #sidebar {
+    flex-shrink: 0;
     flex-basis: 270px;
     background-color: var(--background-main);
     color: var(--text-main);
