@@ -4,7 +4,7 @@ A simple To-Do List application built using Webpack, JavaScript, HTML, and CSS. 
 
 ## Demo
 
-[Live Demo](#) (https://andmana.github.io/To-Do-List/)
+[Live Demo](https://andmana.github.io/To-Do-List/)
 
 ## Features
 
