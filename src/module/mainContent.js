@@ -1,7 +1,7 @@
 import { countAllTasksBy, getAllTasksBy, updateTaskProgress } from "../class/queries.js";
 import { refreshPage2 } from "./app.js";
 import { loadTaskForm } from "./modal.js";
-import { currentState } from "./state.js";
+import { currentState, setIsCompletedtState } from "./state.js";
 
 export const loadMain = () => {
     const { heroQuery, isCompletedQuery, dueQuery, groupQuery } = currentState;
@@ -22,6 +22,8 @@ export const generateMainContent = (hero, isCompleted, due, groupProject) => {
         groupProject
     );
     document.querySelector("#pending-count").style.display = hero === "Completed" ? "none" : "flex";
+    document.querySelector("#completed-count").className =
+        hero === "Completed" ? "" : "show-completed";
 
     const tasksContainer = document.querySelector("#task-list");
     tasksContainer.innerHTML = "";
@@ -42,6 +44,17 @@ export const generateMainContent = (hero, isCompleted, due, groupProject) => {
             <div>${task.title}</div>
             <div class="date">${task.getFormatedDueDate}</div>`;
         tasksContainer.appendChild(taskItem);
+    });
+};
+
+export const attachShowCompleted = () => {
+    const showComplete = document.querySelector("#completed-count");
+    showComplete.addEventListener("click", () => {
+        const { heroQuery, isCompletedQuery } = currentState;
+        if (heroQuery == "Completed") return;
+
+        setIsCompletedtState(isCompletedQuery == false ? null : false);
+        loadMain();
     });
 };
 

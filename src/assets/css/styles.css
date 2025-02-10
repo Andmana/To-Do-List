@@ -303,6 +303,11 @@ body > div {
     justify-content: center;
 }
 
+.show-completed:hover {
+    background-color: var(--background-main) !important;
+    cursor: pointer;
+}
+
 #status > div {
     width: 120px;
     height: 90px;

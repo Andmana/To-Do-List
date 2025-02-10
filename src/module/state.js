@@ -19,6 +19,12 @@ export const setCurrentState = (hero, isCompleted, due, group, activeBar) => {
     setActiveNav(activeBar);
 };
 
+export const setIsCompletedtState = (isCompleted) => {
+    Object.assign(currentState, {
+        isCompletedQuery: isCompleted,
+    });
+};
+
 export const resetCurrentState = () => {
     Object.assign(currentState, {
         dueQuery: "today",
