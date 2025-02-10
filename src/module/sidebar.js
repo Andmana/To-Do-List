@@ -115,8 +115,8 @@ export const sidebarDisplayEvent = () => {
         sidebar.style.display = "block";
         sidebar.classList.add("show-sidebar");
         main.classList.add("light-out");
-        if (!window.innerWidth <= 768) sidebarIcon2.style.display = "none";
-        else sidebarIcon2.style.display = "block"; // For non-mobile
+        if (window.innerWidth <= 768) sidebarIcon2.style.display = "block";
+        else sidebarIcon2.style.display = "none"; // For non-mobile
     };
 
     sidebarIcon1.addEventListener("click", toggleSidebar);

@@ -29,7 +29,7 @@ export const generateMainContent = (hero, isCompleted, due, groupProject) => {
     const tasks = getAllTasksBy(isCompleted, due, groupProject);
     tasks.forEach((task) => {
         const taskItem = document.createElement("div");
-        taskItem.className = "task-item";
+        taskItem.className = `task-item ${task.isCompleted ? "text-striked" : ""}`;
         taskItem.dataset.index = task.id;
         taskItem.innerHTML = `
             <label class="checkbox">
@@ -48,9 +48,15 @@ export const generateMainContent = (hero, isCompleted, due, groupProject) => {
 const attachEventListeners = () => {
     document.querySelectorAll(".checkbox > input").forEach((checkbox) => {
         checkbox.addEventListener("change", () => {
+            const parent = checkbox.parentElement.parentElement; // Corrected this line
             const id = checkbox.getAttribute("data-index");
+
+            parent.classList.toggle("task-flip");
             updateTaskProgress(id);
-            refreshPage2();
+
+            setTimeout(() => {
+                refreshPage2();
+            }, 1100);
         });
     });
 
