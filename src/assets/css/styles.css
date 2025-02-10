@@ -115,8 +115,8 @@ body > div {
 }
 
 .logo-icon {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     filter: invert(86%) sepia(1%) saturate(0%) hue-rotate(236deg) brightness(87%) contrast(81%);
 }
 
@@ -146,6 +146,7 @@ body > div {
 
 .sidebar-icons {
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 #sidebar-icon-2nd {
@@ -176,6 +177,7 @@ body > div {
 .nav-item {
     padding: 6px 13px;
     border-radius: 5px;
+    cursor: pointer;
 
     text-align: start;
     position: relative;
@@ -216,12 +218,17 @@ body > div {
 .edit-project {
     display: none;
     align-items: center;
+    cursor: pointer;
 
     position: absolute;
     right: 9px;
     z-index: 1;
     font-weight: bolder;
-    font-size: 0.7rem !important;
+}
+
+.edit-project:hover {
+    filter: brightness(200%);
+    transform: scale(1.1);
 }
 
 .project-link.nav-item:hover > .edit-project,
@@ -308,7 +315,9 @@ body > div {
     justify-content: center;
     align-items: center;
 }
+
 #add-task {
+    cursor: pointer;
     align-self: center;
     position: relative;
     display: flex;
