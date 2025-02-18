@@ -24,19 +24,16 @@ export const updateLocalStorage = (projects = undefined, tasks = undefined) => {
 export function getAllProjects() {
     let { projects = [] } = getFromLocalStorage();
     projects = mapProjects(projects);
-    for (let i = 0; i < projects.length; i++) {
-        projects[i].id = i;
-    }
     return projects;
 }
+
+const mapProjects = (projects) => projects.map(({ name }, index) => new Project(name, index));
 
 export function getAllTasks() {
     let { tasks = [] } = getFromLocalStorage();
     tasks = mapTasks(tasks);
     return tasks;
 }
-
-const mapProjects = (projects) => projects.map(({ name }) => new Project(name));
 
 const mapTasks = (tasks) =>
     tasks.map(
