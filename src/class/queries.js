@@ -2,6 +2,8 @@ import { Project } from "./Project";
 import { isThisWeek, isToday, isTomorrow } from "date-fns";
 import { Task } from "./Task";
 
+// Local Storage queries
+
 export const getFromLocalStorage = () => {
     const data = localStorage.getItem("myToDoList");
     return data ? JSON.parse(data) : {};
@@ -21,29 +23,16 @@ export const updateLocalStorage = (projects = undefined, tasks = undefined) => {
     localStorage.setItem("myToDoList", JSON.stringify(data));
 };
 
+// Projects Queries
+
 export function getAllProjects() {
     let { projects = [] } = getFromLocalStorage();
     projects = mapProjects(projects);
     return projects;
 }
-
-const mapProjects = (projects) => projects.map(({ name }, index) => new Project(name, index));
-
-export function getAllTasks() {
-    let { tasks = [] } = getFromLocalStorage();
-    tasks = mapTasks(tasks);
-    return tasks;
-}
-
-const mapTasks = (tasks) =>
-    tasks.map(
-        ({ title, description, dueDate, priority, project, isCompleted }, index) =>
-            new Task(title, description, priority, project, isCompleted, dueDate, index)
-    );
-
-export function getTaskByIndex(index) {
-    return getAllTasks()[index];
-}
+const mapProjects = (projects) => {
+    projects.map(({ name }, index) => new Project(name, index));
+};
 
 export function getProjectByIndex(index) {
     return getAllProjects()[index];
@@ -56,6 +45,39 @@ export function deleteProjectBy(index) {
     tasks = tasks.filter((task) => task.project != project.name);
     projects.splice(index, 1);
     updateLocalStorage(projects, tasks);
+}
+
+export function saveProject(name, id = null) {
+    let projects = getAllProjects();
+    let exists = projects.some(
+        (pj, index) => pj.name.toLowerCase() == name.toLowerCase() && index != id
+    );
+    if (exists) return;
+
+    if (id != null && projects[id]) {
+        projects[id].name = name;
+    } else {
+        projects.push(new Project(name));
+    }
+    updateLocalStorage(projects);
+}
+
+// Tasks Queries
+
+export function getAllTasks() {
+    let { tasks = [] } = getFromLocalStorage();
+    tasks = mapTasks(tasks);
+    return tasks;
+}
+const mapTasks = (tasks) => {
+    tasks.map(
+        ({ title, description, dueDate, priority, project, isCompleted }, index) =>
+            new Task(title, description, priority, project, isCompleted, dueDate, index)
+    );
+};
+
+export function getTaskByIndex(index) {
+    return getAllTasks()[index];
 }
 
 export function getAllTasksBy(isCompleted, due, project) {
@@ -86,23 +108,9 @@ export function deleteTaskBy(index) {
     updateLocalStorage(undefined, tasks);
 }
 
-export const countAllTasksBy = (isCompleted, due, project) =>
+export const countAllTasksBy = (isCompleted, due, project) => {
     getAllTasksBy(isCompleted, due, project).length;
-
-export function saveProject(name, id = null) {
-    let projects = getAllProjects();
-    let exists = projects.some(
-        (pj, index) => pj.name.toLowerCase() == name.toLowerCase() && index != id
-    );
-    if (exists) return;
-
-    if (id != null && projects[id]) {
-        projects[id].name = name;
-    } else {
-        projects.push(new Project(name));
-    }
-    updateLocalStorage(projects);
-}
+};
 
 export function saveTask(objectForm, id = null) {
     let tasks = getAllTasks();
