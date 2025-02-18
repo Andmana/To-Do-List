@@ -8,13 +8,22 @@ export class Task {
     priority;
     isCompleted;
 
-    constructor(title, description, dueDate = "No date", priority, project, isCompleted) {
+    constructor(
+        title,
+        description,
+        priority,
+        project,
+        isCompleted,
+        dueDate = "No date",
+        id = null
+    ) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.project = project;
         this.isCompleted = isCompleted;
+        this.id = id;
     }
 
     get getFormatedDueDate() {

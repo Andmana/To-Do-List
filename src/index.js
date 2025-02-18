@@ -16,7 +16,7 @@ import {
 } from "./class/queries";
 
 const today = new Date();
-let tasks = [new Task("Task 0", "Description 1", today, "High", "Default", true)];
+let tasks = [new Task("Task1", "", "High", "Default", false, today)];
 
 const projects = [new Project("Default")];
 let data = getFromLocalStorage();

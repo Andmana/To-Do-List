@@ -33,9 +33,6 @@ export function getAllProjects() {
 export function getAllTasks() {
     let { tasks = [] } = getFromLocalStorage();
     tasks = mapTasks(tasks);
-    for (let i = 0; i < tasks.length; i++) {
-        tasks[i].id = i;
-    }
     return tasks;
 }
 
@@ -43,8 +40,8 @@ const mapProjects = (projects) => projects.map(({ name }) => new Project(name));
 
 const mapTasks = (tasks) =>
     tasks.map(
-        ({ title, description, dueDate, priority, project, isCompleted }) =>
-            new Task(title, description, dueDate, priority, project, isCompleted)
+        ({ title, description, dueDate, priority, project, isCompleted }, index) =>
+            new Task(title, description, priority, project, isCompleted, dueDate, index)
     );
 
 export function getTaskByIndex(index) {
@@ -133,10 +130,10 @@ export function saveTask(objectForm, id = null) {
             new Task(
                 taskData.title,
                 taskData.description,
-                taskData.dueDate,
                 taskData.priority,
                 taskData.project,
-                taskData.isCompleted
+                taskData.isCompleted,
+                taskData.dueDate
             )
         );
     }
