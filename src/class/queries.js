@@ -120,7 +120,6 @@ export function saveTask(objectForm, id = null) {
         dueDate: objectForm.dueDate || "No Date",
         priority: objectForm.priority,
         project: objectForm.project,
-        isCompleted: false,
     };
 
     if (id != null && tasks[id]) {
@@ -132,7 +131,7 @@ export function saveTask(objectForm, id = null) {
                 taskData.description,
                 taskData.priority,
                 taskData.project,
-                taskData.isCompleted,
+                false,
                 taskData.dueDate
             )
         );
