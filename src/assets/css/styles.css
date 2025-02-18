@@ -111,7 +111,7 @@ textarea {
 }
 
 body > div {
-    padding: 10px 20px;
+    padding: 10px 10px 10px 20px;
 }
 
 .logo-icon {
@@ -267,6 +267,7 @@ body > div {
     color: var(--text-secondary);
     margin-bottom: 10px;
     height: 50px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -281,6 +282,7 @@ body > div {
 
 .header h2 {
     font-weight: 450;
+    font-size: clamp(14px, 2vw, 22px);
 }
 
 #main {
@@ -540,6 +542,9 @@ body > div {
 }
 
 @media (max-width: 768px) {
+    body {
+        min-height: 100svh;
+    }
     #sidebar {
         display: block;
         position: fixed;
